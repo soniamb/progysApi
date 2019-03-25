@@ -4,37 +4,36 @@ var sql = require('../db/db');
 
   exports.addAction = function (req, res) {
     var ret = {'status' : 500, 'type' : null, 'data': null, 'error': null,message:null};
+
+    var code = req.body.code;
+    var type = req.body.type;
+    var priorite = req.body.priorite;
+    var demandeur = req.body.demandeur;
+    var prov_de = req.body.prov_de;
+    var analy_causes = req.body.analy_causes;
     var categorie = req.body.categorie;
-    var created_at = req.body.date_creation;
     var desc_prob = req.body.desc_prob;
     var code_origine = req.body.code_origine;
 
-    if(categorie && created_at && code_origine && desc_prob)
-    {
 
-      var requete = "INSERT INTO actions (categorie, date_creation, desc_prob, code_origine) VALUES(?,?,?,?)";
+      var requete = "INSERT INTO actions " +
+          "(code, type, priorite, demandeur, prov_de, analy_causes, categorie, desc_prob, code_origine) VALUES(?,?,?,?,?,?,?,?,?)";
 
-      sql.query(requete,[ categorie, created_at, desc_prob, code_origine ], function (err,result) {
+      sql.query(requete,[code,type,priorite,demandeur,prov_de,analy_causes, categorie, desc_prob, code_origine ], function (err,result) {
           if (err){
-              ret.status = 501;
+              ret.status = 500;
               ret.error = err;
               ret.message = 'error on insert record in mysql data base';
 
           }else{
               ret.status = 200;
-              ret.message = '1record inserted';
+              ret.message = '1 record inserted';
           }
           res.status(ret.status);
           res.json(ret);
 
       });
 
-    }else {
-      ret.error = "Form data invalid";
-      ret.status = 401;
-        res.status(ret.status);
-        res.json(ret);
-    }
 
   };
 
@@ -45,7 +44,7 @@ exports.listOfActions = function (req, res) {
 
         sql.query(requete, function (err,result) {
             if (err){
-                ret.status = 501;
+                ret.status = 500;
                 ret.error = err;
                 ret.message = 'error get data from mysql data base';
 
