@@ -14,12 +14,21 @@ var sql = require('../db/db');
     var categorie = req.body.categorie;
     var desc_prob = req.body.desc_prob;
     var code_origine = req.body.code_origine;
+    var taux_realisation = req.body.taux_realisation;
+    var taux_efficacite = req.body.taux_efficacite;
+    var observation = req.body.observation;
+    var etat = req.body.etat;
+    var date_cloture = req.body.date_cloture;
+    var observation_cloture = req.body.observation_cloture;
 
 
       var requete = "INSERT INTO actions " +
-          "(code, type, priorite, demandeur, prov_de, analy_causes, categorie, desc_prob, code_origine) VALUES(?,?,?,?,?,?,?,?,?)";
+          "(code, type, priorite, demandeur, prov_de, analy_causes, categorie, desc_prob, code_origine,taux_realisation," +
+          "taux_efficacite, observation, etat, date_cloture, observation_cloture)" +
+          " VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 
-      sql.query(requete,[code,type,priorite,demandeur,prov_de,analy_causes, categorie, desc_prob, code_origine ], function (err,result) {
+      sql.query(requete,[code,type,priorite,demandeur,prov_de,analy_causes, categorie,
+          desc_prob, code_origine,taux_realisation,taux_efficacite,observation,etat,date_cloture,observation_cloture ], function (err,result) {
           if (err){
               ret.status = 500;
               ret.error = err;
@@ -42,7 +51,7 @@ exports.listOfActions = function (req, res) {
 
         var requete = "SELECT * FROM actions";
 
-        sql.query(requete, function (err,result) {
+        sql.query(requete,[], function (err,result) {
             if (err){
                 ret.status = 500;
                 ret.error = err;
@@ -60,3 +69,4 @@ exports.listOfActions = function (req, res) {
 
 
 };
+
