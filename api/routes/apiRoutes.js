@@ -6,4 +6,6 @@ module.exports = function(app) {
       .post(api.addAction);
   app.route('/api/allActions')
       .get(api.listOfActions);
+  app.route('/api/updateAction')
+      .post(api.updateAction)
 };
