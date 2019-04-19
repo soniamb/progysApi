@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"ERR: 00x0001: No test specified.\" && exit 1"
   },
-  "author": "Courtel Eliot",
+  "author": "Mbaya Sonia",
   "license": "ISC",
   "devDependencies": {
     "nodemon": "^1.17.4"
